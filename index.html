@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расчет возврата и обмена</title>
+    <style>
+        .calculator {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .label {
+            font-size: 15px; /* Уменьшили размер шрифта */
+            font-weight: bold; /* Сделали жирным */
+            color: #333; /* Темно-серый цвет */
+            width: 50%;
+            font-family: Arial, sans-serif; /* Шрифт */
+        }
+        .input {
+            width: 150px;
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            background-color: #f0f0f0;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: right;
+            width: 150px;
+        }
+        .clear-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #7D71FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            background-color: #EDEFFF;
+            color: #0D0B68;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Первый калькулятор -->
+        <div class="calculator">
+            <h2 style="text-align: center;">Расчет возврата</h2>
+
+            <!-- Поле 1 -->
+            <div class="row">
+                <div class="label">Тариф из БО в рублях:</div>
+                <input type="number" id="field1" class="input" placeholder="введи число" oninput="calculate()">
+            </div>
+
+            <!-- Поле 2 -->
+            <div class="row">
+                <div class="label">Тариф в EUR или KZT из GDS:</div>
+                <input type="number" id="field2" class="input" placeholder="введи число" oninput="calculate()">
+            </div>
+
+            <!-- Остальные поля первого калькулятора -->
+            <div class="row">
+                <div class="label">Курс БО на дату продажи:</div>
+                <div id="field3" class="result">0</div>
+            </div>
+            <div class="row">
+                <div class="label">Штраф в EUR или KZT:</div>
+                <input type="number" id="field4" class="input" placeholder="введи число" oninput="calculate()">
+            </div>
+            <div class="row">
+                <div class="label">Курс БО или курс Berlodgic на день возврата:</div>
+                <input type="number" id="field5" class="input" placeholder="введи число" oninput="calculate()">
+            </div>
+            <div class="row">
+                <div class="label">Штраф в рублях для клиента:</div>
+                <div id="field6" class="result">0</div>
+            </div>
+            <div class="row">
+                <div class="label">Сумма к возврату по GDS в EUR или KZT по тарифу:</div>
+                <input type="number" id="field7" class="input" placeholder="введи число" oninput="calculate()">
+            </div>
+            <div class="row">
+                <div class="label">Курс БО на дату продажи:</div>
+                <div id="field8" class="result">0</div>
+            </div>
+            <div class="row">
+                <div class="label">Сумма к возврату по тарифу для клиента в рублях:</div>
+                <div id="field9" class="result">0</div>
+            </div>
+            <div class="row">
+                <div class="label">Сумма к возврату по GDS в EUR или KZT по таксам:</div>
+                <input type="number" id="field10" class="input" placeholder="введи число" oninput="calculate()">
+            </div>
+            <div class="row">
+                <div class="label">Курс БО на дату продажи:</div>
+                <input type="number" id="field11" class="input" placeholder="введи число" oninput="calculate()">
+            </div>
+            <div class="row">
+                <div class="label">Сумма к возврату по таксам для клиента в рублях:</div>
+                <div id="field12" class="result">0</div>
+            </div>
+            <div class="row">
+                <div class="label">Итого к возврату для клиента в рублях до вычета СС:</div>
+                <div id="field13" class="result">0</div>
+            </div>
+            <div class="row">
+                <div class="label">Итого к возврату для клиента в рублях с учетом СС:</div>
+                <div id="field14" class="result">0</div>
+            </div>
+
+            <!-- Кнопка "Сбросить расчет" -->
+            <button class="clear-btn" onclick="clearFields()">Сбросить расчет</button>
+        </div>
+
+        <!-- Второй калькулятор -->
+        <div class="calculator">
+            <h2 style="text-align: center;">Расчет обмена</h2>
+
+            <!-- Поле 1 -->
+            <div class="row">
+                <div class="label">Доплата по тарифу в EUR или KZT из GDS:</div>
+                <input type="number" id="ex-field1" class="input" placeholder="введи число" oninput="exchangeCalculate()">
+            </div>
+
+            <!-- Поле 2 -->
+            <div class="row">
+                <div class="label">Курс Berlodgic на день обмена:</div>
+                <input type="number" id="ex-field2" class="input" placeholder="введи число" oninput="exchangeCalculate()">
+            </div>
+
+            <!-- Поле 3 -->
+            <div class="row">
+                <div class="label">Сумма доплаты по тарифу для клиента в рублях:</div>
+                <div id="ex-field3" class="result">0</div>
+            </div>
+
+            <!-- Поле 4 -->
+            <div class="row">
+                <div class="label">Доплата по таксам в EUR или KZT из GDS:</div>
+                <input type="number" id="ex-field4" class="input" placeholder="введи число" oninput="exchangeCalculate()">
+            </div>
+
+            <!-- Поле 5 -->
+            <div class="row">
+                <div class="label">Курс Berlodgic на день обмена:</div>
+                <input type="number" id="ex-field5" class="input" placeholder="введи число" oninput="exchangeCalculate()">
+            </div>
+
+            <!-- Поле 6 -->
+            <div class="row">
+                <div class="label">Сумма доплаты по таксам для клиента в рублях:</div>
+                <div id="ex-field6" class="result">0</div>
+            </div>
+
+            <!-- Поле 7 -->
+            <div class="row">
+                <div class="label">Штраф в EUR или KZT:</div>
+                <input type="number" id="ex-field7" class="input" placeholder="введи число" oninput="exchangeCalculate()">
+            </div>
+
+            <!-- Поле 8 -->
+            <div class="row">
+                <div class="label">Курс Berlodgic на дату обмена:</div>
+                <div id="ex-field8" class="result">0</div>
+            </div>
+
+            <!-- Поле 9 -->
+            <div class="row">
+                <div class="label">Штраф в рублях для клиента:</div>
+                <div id="ex-field9" class="result">0</div>
+            </div>
+
+            <!-- Поле 10 -->
+            <div class="row">
+                <div class="label">Итого доплата для клиента в рублях до вычета СС:</div>
+                <div id="ex-field10" class="result">0</div>
+            </div>
+
+            <!-- Поле 11 -->
+            <div class="row">
+                <div class="label">Итого к обмену для клиента в рублях с учетом СС:</div>
+                <div id="ex-field11" class="result">0</div>
+            </div>
+
+            <!-- Кнопка "Сбросить расчет" -->
+            <button class="clear-btn" onclick="clearExchangeFields()">Сбросить расчет</button>
+        </div>
+    </div>
+
+    <script>
+        // Функция для расчетов первого калькулятора
+        function calculate() {
+            const field1 = parseFloat(document.getElementById('field1').value) || 0;
+            const field2 = parseFloat(document.getElementById('field2').value) || 0;
+            const field4 = parseFloat(document.getElementById('field4').value) || 0;
+            const field5 = parseFloat(document.getElementById('field5').value) || 0;
+            const field7 = parseFloat(document.getElementById('field7').value) || 0;
+            const field10 = parseFloat(document.getElementById('field10').value) || 0;
+            const field11 = parseFloat(document.getElementById('field11').value) || 0;
+
+            const field3 = field2 !== 0 ? (field1 / field2).toFixed(2) : 0;
+            const field6 = (field4 * field5).toFixed(2);
+            const field8 = field3;
+            const field9 = (field7 * field8).toFixed(2);
+            const field12 = (field10 * field11).toFixed(2);
+            const field13 = ((parseFloat(field9) + parseFloat(field12)) - parseFloat(field6)).toFixed(2);
+            const field14 = (parseFloat(field13) - 1100).toFixed(2);
+
+            document.getElementById('field3').textContent = field3;
+            document.getElementById('field6').textContent = field6;
+            document.getElementById('field8').textContent = field8;
+            document.getElementById('field9').textContent = field9;
+            document.getElementById('field12').textContent = field12;
+            document.getElementById('field13').textContent = field13;
+            document.getElementById('field14').textContent = field14;
+        }
+
+        // Функция для очистки первого калькулятора
+        function clearFields() {
+            document.getElementById('field1').value = '';
+            document.getElementById('field2').value = '';
+            document.getElementById('field4').value = '';
+            document.getElementById('field5').value = '';
+            document.getElementById('field7').value = '';
+            document.getElementById('field10').value = '';
+            document.getElementById('field11').value = '';
+
+            document.getElementById('field3').textContent = '0';
+            document.getElementById('field6').textContent = '0';
+            document.getElementById('field8').textContent = '0';
+            document.getElementById('field9').textContent = '0';
+            document.getElementById('field12').textContent = '0';
+            document.getElementById('field13').textContent = '0';
+            document.getElementById('field14').textContent = '0';
+        }
+
+        // Функция для расчетов второго калькулятора
+        function exchangeCalculate() {
+            const exField1 = parseFloat(document.getElementById('ex-field1').value) || 0;
+            const exField2 = parseFloat(document.getElementById('ex-field2').value) || 0;
+            const exField4 = parseFloat(document.getElementById('ex-field4').value) || 0;
+            const exField5 = parseFloat(document.getElementById('ex-field5').value) || 0;
+            const exField7 = parseFloat(document.getElementById('ex-field7').value) || 0;
+
+            const exField3 = (exField1 * exField2).toFixed(2);
+            const exField6 = (exField4 * exField5).toFixed(2);
+            const exField8 = exField2;
+            const exField9 = (exField7 * exField8).toFixed(2);
+            const exField10 = ((parseFloat(exField3) + parseFloat(exField6)) + parseFloat(exField9)).toFixed(2);
+            const exField11 = (parseFloat(exField10) + 1700).toFixed(2);
+
+            document.getElementById('ex-field3').textContent = exField3;
+            document.getElementById('ex-field6').textContent = exField6;
+            document.getElementById('ex-field8').textContent = exField8;
+            document.getElementById('ex-field9').textContent = exField9;
+            document.getElementById('ex-field10').textContent = exField10;
+            document.getElementById('ex-field11').textContent = exField11;
+        }
+
+        // Функция для очистки второго калькулятора
+        function clearExchangeFields() {
+            document.getElementById('ex-field1').value = '';
+            document.getElementById('ex-field2').value = '';
+            document.getElementById('ex-field4').value = '';
+            document.getElementById('ex-field5').value = '';
+            document.getElementById('ex-field7').value = '';
+
+            document.getElementById('ex-field3').textContent = '0';
+            document.getElementById('ex-field6').textContent = '0';
+            document.getElementById('ex-field8').textContent = '0';
+            document.getElementById('ex-field9').textContent = '0';
+            document.getElementById('ex-field10').textContent = '0';
+            document.getElementById('ex-field11').textContent = '0';
+        }
+    </script>
+</body>
+</html>
