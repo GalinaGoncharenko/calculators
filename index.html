@@ -1,16 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Расчет возврата и обмена для иностранных РСС Galileo</title>
+    <title>Расчет возврата и обмена</title>
     <style>
         /* Общий стиль для всей страницы */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: transparent; /* Прозрачный фон */
             padding-top: 30px; /* Отступ сверху */
         }
 
@@ -18,19 +17,20 @@
         .container {
             display: flex;
             justify-content: space-between;
-            gap: 25px; /* Расстояние между калькуляторами */
+            gap: 15px; /* Расстояние между калькуляторами */
             max-width: 1200px; /* Максимальная ширина контейнера */
             margin: 0 auto; /* Центрирование контейнера */
-            padding: 0 10px; /* Отступы по бокам */
+            padding: 0 20px; /* Отступы по бокам */
         }
 
         /* Стиль для калькулятора */
         .calculator {
             flex: 1; /* Калькуляторы занимают равное пространство */
             padding: 20px;
-            background: #fff;
+            background: transparent; /* Прозрачный фон */
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: none; /* Убираем тень */
+            border: 1px solid #ccc; /* Добавляем легкую границу для видимости */
         }
 
         /* Стиль для строк внутри калькулятора */
@@ -56,11 +56,12 @@
             font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #fff; /* Белый фон для полей ввода */
         }
 
         /* Стиль для полей с результатами */
         .result {
-            background-color: #f0f0f0;
+            background-color: #f0f0f0; /* Светло-серый фон для результатов */
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
