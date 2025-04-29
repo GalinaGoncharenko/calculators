@@ -13,7 +13,6 @@
             background-color: transparent; /* Прозрачный фон */
             padding-top: 30px; /* Отступ сверху */
         }
-
         /* Контейнер для калькуляторов */
         .container {
             display: flex;
@@ -23,7 +22,6 @@
             margin: 0 auto; /* Центрирование контейнера */
             padding: 0 20px; /* Отступы по бокам */
         }
-
         /* Стиль для калькулятора */
         .calculator {
             flex: 1; /* Калькуляторы занимают равное пространство */
@@ -33,51 +31,56 @@
             box-shadow: none; /* Убираем тень */
             border: 1px solid #ccc; /* Добавляем легкую границу для видимости */
         }
-
         /* Стиль для заголовков */
         .calculator-title {
-            font-size: 18px; /* Уменьшаем размер шрифта */
+            font-size: 18px; /* Размер заголовка */
             color: #333; /* Темно-серый цвет текста */
-            margin-bottom: 15px; /* Отступ снизу */
+            margin-bottom: 10px; /* Отступ снизу */
+            text-align: left; /* Выравнивание по левому краю */
         }
-
+        /* Стиль разделительной линии под заголовком */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #ccc; /* Цвет как у границы калькулятора */
+            margin-bottom: 20px; /* Отступ между линией и полями */
+        }
         /* Стиль для строк внутри калькулятора */
         .row {
             display: flex;
             align-items: center;
             margin-bottom: 15px; /* Расстояние между строками */
         }
-
         /* Стиль для меток (левая часть строки) */
         .label {
-            font-size: 15px;
+            font-size: 14px; /* Уменьшенный размер текста */
             font-weight: bold;
             color: #333;
-            width: 40%; /* Увеличиваем ширину меток */
+            width: 40%; /* Ширина меток */
             text-align: left; /* Выравнивание по левому краю */
+            margin-right: 10px; /* Отступ между меткой и полем */
         }
-
         /* Стиль для полей ввода */
         .input {
-            width: 200px; /* Увеличиваем ширину полей ввода */
-            padding: 5px;
+            width: 200px; /* Ширина полей */
+            padding: 5px 10px; /* Внутренние отступы */
             font-size: 14px;
+            text-align: right; /* Выравнивание текста по правой стороне */
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #fff; /* Белый фон для полей ввода */
+            background-color: #fff; /* Белый фон */
         }
-
         /* Стиль для полей с результатами */
         .result {
-            background-color: #f0f0f0; /* Светло-серый фон для результатов */
-            padding: 5px;
+            width: 200px; /* Ширина полей */
+            padding: 5px 10px; /* Внутренние отступы */
+            font-size: 14px;
+            text-align: right; /* Выравнивание текста по правой стороне */
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #f0f0f0; /* Светло-серый фон */
             font-weight: bold;
-            text-align: right;
-            width: 200px; /* Увеличиваем ширину результатов */
         }
-
         /* Стиль для кнопки "Сбросить расчет" */
         .clear-btn {
             display: block;
@@ -90,7 +93,6 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
         .clear-btn:hover {
             background-color: #777; /* Темнее при наведении */
             color: white;
@@ -103,13 +105,12 @@
         <!-- Первый калькулятор -->
         <div class="calculator">
             <h2 class="calculator-title">Расчет возврата</h2>
-
+            <div class="divider"></div>
             <!-- Поле 1 -->
             <div class="row">
                 <div class="label">Тариф из БО в рублях:</div>
                 <input type="number" id="field1" class="input" placeholder="введи число" oninput="calculate()">
             </div>
-
             <!-- Остальные поля первого калькулятора -->
             <div class="row">
                 <div class="label">Тариф в EUR или KZT из GDS:</div>
@@ -163,21 +164,18 @@
                 <div class="label">Итого к возврату для клиента в рублях с учетом СС:</div>
                 <div id="field14" class="result">0</div>
             </div>
-
             <!-- Кнопка "Сбросить расчет" -->
             <button class="clear-btn" onclick="clearFields()">Сбросить расчет</button>
         </div>
-
         <!-- Второй калькулятор -->
         <div class="calculator">
             <h2 class="calculator-title">Расчет обмена</h2>
-
+            <div class="divider"></div>
             <!-- Поле 1 -->
             <div class="row">
                 <div class="label">Доплата по тарифу в EUR или KZT из GDS:</div>
                 <input type="number" id="ex-field1" class="input" placeholder="введи число" oninput="exchangeCalculate()">
             </div>
-
             <!-- Остальные поля второго калькулятора -->
             <div class="row">
                 <div class="label">Курс Berlodgic на день обмена:</div>
@@ -219,12 +217,10 @@
                 <div class="label">Итого к обмену для клиента в рублях с учетом СС:</div>
                 <div id="ex-field11" class="result">0</div>
             </div>
-
             <!-- Кнопка "Сбросить расчет" -->
             <button class="clear-btn" onclick="clearExchangeFields()">Сбросить расчет</button>
         </div>
     </div>
-
     <script>
         // Функция для расчетов первого калькулятора
         function calculate() {
@@ -235,7 +231,6 @@
             const field7 = parseFloat(document.getElementById('field7').value) || 0;
             const field10 = parseFloat(document.getElementById('field10').value) || 0;
             const field11 = parseFloat(document.getElementById('field11').value) || 0;
-
             const field3 = field2 !== 0 ? (field1 / field2).toFixed(2) : 0;
             const field6 = (field4 * field5).toFixed(2);
             const field8 = field3;
@@ -243,7 +238,6 @@
             const field12 = (field10 * field11).toFixed(2);
             const field13 = ((parseFloat(field9) + parseFloat(field12)) - parseFloat(field6)).toFixed(2);
             const field14 = (parseFloat(field13) - 1100).toFixed(2);
-
             document.getElementById('field3').textContent = field3;
             document.getElementById('field6').textContent = field6;
             document.getElementById('field8').textContent = field8;
@@ -252,7 +246,6 @@
             document.getElementById('field13').textContent = field13;
             document.getElementById('field14').textContent = field14;
         }
-
         // Функция для очистки первого калькулятора
         function clearFields() {
             document.getElementById('field1').value = '';
@@ -262,7 +255,6 @@
             document.getElementById('field7').value = '';
             document.getElementById('field10').value = '';
             document.getElementById('field11').value = '';
-
             document.getElementById('field3').textContent = '0';
             document.getElementById('field6').textContent = '0';
             document.getElementById('field8').textContent = '0';
@@ -271,7 +263,6 @@
             document.getElementById('field13').textContent = '0';
             document.getElementById('field14').textContent = '0';
         }
-
         // Функция для расчетов второго калькулятора
         function exchangeCalculate() {
             const exField1 = parseFloat(document.getElementById('ex-field1').value) || 0;
@@ -279,14 +270,12 @@
             const exField4 = parseFloat(document.getElementById('ex-field4').value) || 0;
             const exField5 = parseFloat(document.getElementById('ex-field5').value) || 0;
             const exField7 = parseFloat(document.getElementById('ex-field7').value) || 0;
-
             const exField3 = (exField1 * exField2).toFixed(2);
             const exField6 = (exField4 * exField5).toFixed(2);
             const exField8 = exField2;
             const exField9 = (exField7 * exField8).toFixed(2);
             const exField10 = ((parseFloat(exField3) + parseFloat(exField6)) + parseFloat(exField9)).toFixed(2);
             const exField11 = (parseFloat(exField10) + 1700).toFixed(2);
-
             document.getElementById('ex-field3').textContent = exField3;
             document.getElementById('ex-field6').textContent = exField6;
             document.getElementById('ex-field8').textContent = exField8;
@@ -294,10 +283,20 @@
             document.getElementById('ex-field10').textContent = exField10;
             document.getElementById('ex-field11').textContent = exField11;
         }
-
         // Функция для очистки второго калькулятора
         function clearExchangeFields() {
             document.getElementById('ex-field1').value = '';
             document.getElementById('ex-field2').value = '';
             document.getElementById('ex-field4').value = '';
-            document.getElementById('ex-field5
+            document.getElementById('ex-field5').value = '';
+            document.getElementById('ex-field7').value = '';
+            document.getElementById('ex-field3').textContent = '0';
+            document.getElementById('ex-field6').textContent = '0';
+            document.getElementById('ex-field8').textContent = '0';
+            document.getElementById('ex-field9').textContent = '0';
+            document.getElementById('ex-field10').textContent = '0';
+            document.getElementById('ex-field11').textContent = '0';
+        }
+    </script>
+</body>
+</html>
