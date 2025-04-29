@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -17,7 +18,7 @@
         .container {
             display: flex;
             justify-content: space-between;
-            gap: 15px; /* Расстояние между калькуляторами */
+            gap: 20px; /* Расстояние между калькуляторами */
             max-width: 1200px; /* Максимальная ширина контейнера */
             margin: 0 auto; /* Центрирование контейнера */
             padding: 0 20px; /* Отступы по бокам */
@@ -36,15 +37,13 @@
         /* Стиль для заголовков */
         .calculator-title {
             font-size: 18px; /* Уменьшаем размер шрифта */
-            text-align: center; /* Выравнивание по центру */
-            margin-bottom: 15px; /* Отступ снизу */
             color: #333; /* Темно-серый цвет текста */
+            margin-bottom: 15px; /* Отступ снизу */
         }
 
         /* Стиль для строк внутри калькулятора */
         .row {
             display: flex;
-            justify-content: space-between;
             align-items: center;
             margin-bottom: 15px; /* Расстояние между строками */
         }
@@ -54,12 +53,13 @@
             font-size: 15px;
             font-weight: bold;
             color: #333;
-            width: 50%;
+            width: 40%; /* Увеличиваем ширину меток */
+            text-align: left; /* Выравнивание по левому краю */
         }
 
         /* Стиль для полей ввода */
         .input {
-            width: 150px;
+            width: 200px; /* Увеличиваем ширину полей ввода */
             padding: 5px;
             font-size: 14px;
             border: 1px solid #ccc;
@@ -75,16 +75,16 @@
             border-radius: 5px;
             font-weight: bold;
             text-align: right;
-            width: 150px;
+            width: 200px; /* Увеличиваем ширину результатов */
         }
 
         /* Стиль для кнопки "Сбросить расчет" */
         .clear-btn {
             display: block;
-            margin: 20px auto;
+            margin: 20px 0 0 0; /* Выравнивание по левому краю */
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #7D71FF;
+            background-color: #999; /* Серый фон */
             color: white;
             border: none;
             border-radius: 5px;
@@ -92,8 +92,8 @@
         }
 
         .clear-btn:hover {
-            background-color: #EDEFFF;
-            color: #0D0B68;
+            background-color: #777; /* Темнее при наведении */
+            color: white;
         }
     </style>
 </head>
@@ -300,16 +300,4 @@
             document.getElementById('ex-field1').value = '';
             document.getElementById('ex-field2').value = '';
             document.getElementById('ex-field4').value = '';
-            document.getElementById('ex-field5').value = '';
-            document.getElementById('ex-field7').value = '';
-
-            document.getElementById('ex-field3').textContent = '0';
-            document.getElementById('ex-field6').textContent = '0';
-            document.getElementById('ex-field8').textContent = '0';
-            document.getElementById('ex-field9').textContent = '0';
-            document.getElementById('ex-field10').textContent = '0';
-            document.getElementById('ex-field11').textContent = '0';
-        }
-    </script>
-</body>
-</html>
+            document.getElementById('ex-field5
